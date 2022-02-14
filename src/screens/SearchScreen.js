@@ -9,6 +9,7 @@ import {
   Dimensions,
   FlatList,
   ScrollView,
+  ActivityIndicator,
   SafeAreaView,
   Button,
 } from 'react-native';
@@ -19,12 +20,14 @@ import {getImage} from '../redux/action/DataAction';
 const {width, height} = Dimensions.get('window');
 
 class SearchScreen extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    userImage: false,
+  };
+  componentDidMount() {
     this.props.fetchApi();
+    this.setState({userImage: true});
   }
   render() {
-    console.log('=>', this.props.data);
     const Item = ({download_url}) => (
       <View style={styles.item}>
         <Image style={styles.image} source={{uri: download_url}} />
@@ -41,12 +44,16 @@ class SearchScreen extends Component {
             placeholderTextColor="#888"
           />
         </TouchableOpacity>
-        <FlatList
-          data={this.props.data}
-          numColumns={3}
-          renderItem={renderItem}
-          keyExtractor={(item, index) => index.toString()}
-        />
+        {this.state.userImage ? (
+          <FlatList
+            data={this.props.data}
+            numColumns={3}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        ) : (
+          <ActivityIndicator />
+        )}
       </View>
     );
   }
