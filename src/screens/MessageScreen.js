@@ -8,6 +8,7 @@ import {
   Dimensions,
   FlatList,
   SafeAreaView,
+  ScrollView,
 } from 'react-native';
 import React, {useState} from 'react';
 import {
@@ -44,6 +45,12 @@ const HeaderComponent = () => {
           />
         </View>
       </View>
+    </View>
+  );
+};
+const SearchComponent = () => {
+  return (
+    <View>
       <View style={styles.searchContainer}>
         <Image style={styles.searchIcon} source={SearchHighlightIcon} />
         <TextInput
@@ -77,7 +84,7 @@ const Item = ({avatar, name, message, time}) => (
   </View>
 );
 const MessageScreen = () => {
-  // const [isFetching, setIsFetching] = useState(false)
+  // const [enableScrollViewScroll, setEnableScrollViewScroll] = useState(true)
   //   const onRefresh = () => {
   //     // this.setState({isFetching: true,},() => {this.getApiData();});
   //     setIsFetching(true)
@@ -91,16 +98,20 @@ const MessageScreen = () => {
     />
   );
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <HeaderComponent />
+
       <FlatList
+        ListHeaderComponent={<SearchComponent />}
         data={userMessage}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
+        // scrollEnabled={false}
+        // nestedScrollEnabled
         // onRefresh={() => onRefresh()}
         // refreshing={isFetching}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -208,6 +219,6 @@ const styles = StyleSheet.create({
     height: 2,
     backgroundColor: '#888',
     borderRadius: 50,
-    marginHorizontal: 4
+    marginHorizontal: 4,
   },
 });
