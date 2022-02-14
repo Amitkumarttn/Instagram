@@ -9,6 +9,7 @@ import {
   FlatList,
   SafeAreaView,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useState} from 'react';
 import {
@@ -57,6 +58,7 @@ const SearchComponent = () => {
           style={styles.searchTextInput}
           placeholder="Search"
           placeholderTextColor="#888"
+          clearButtonMode="always"
         />
       </View>
       <View style={styles.titleContainer}>
@@ -84,11 +86,19 @@ const Item = ({avatar, name, message, time}) => (
   </View>
 );
 const MessageScreen = () => {
-  // const [enableScrollViewScroll, setEnableScrollViewScroll] = useState(true)
-  //   const onRefresh = () => {
-  //     // this.setState({isFetching: true,},() => {this.getApiData();});
-  //     setIsFetching(true)
-  // }
+  const [isFetching, setIsFetching] = useState(false);
+
+  const fetchData = () => {
+    // dispatch(getAllTopicAction(userParamData));
+    setIsFetching(false);
+  };
+
+  const onRefresh = () => {
+    setIsFetching(true);
+    <ActivityIndicator />
+    fetchData();
+  };
+
   const renderItem = ({item}) => (
     <Item
       avatar={item.avatar}
@@ -108,8 +118,10 @@ const MessageScreen = () => {
         keyExtractor={(item, index) => index.toString()}
         // scrollEnabled={false}
         // nestedScrollEnabled
-        // onRefresh={() => onRefresh()}
-        // refreshing={isFetching}
+        onRefresh={onRefresh}
+        refreshing={isFetching}
+        progressViewOffset={5000}
+        // ListEmptyComponent={<Empty message="No data found." />}
       />
     </View>
   );
