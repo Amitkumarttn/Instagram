@@ -46,4 +46,4 @@ export {default as MetaLogo} from '../assets/icons/meta.png';
 export {default as BellIcon} from '../assets/icons/icons8-bell-64.png';
 export {default as LeftIcon} from '../assets/icons/icons8-left-arrow-32.png';
 export {default as VideoChat} from '../assets/icons/icons8-video-camera-64.png';
-// export {default as CameraIcon} from '../assets/icons/camera.png';
+export {default as AllCaughtUpIcon} from '../assets/icons/allcaught.jpeg';

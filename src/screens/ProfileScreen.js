@@ -154,6 +154,11 @@ class ProfileScreen extends Component {
                           userProfilePic={item.profilepic}
                           userName={item.name}
                           peoples={item.follow}
+                          height={180}
+                          width={150}
+                          avatarWidth={80}
+                          avatarHeight={80}
+                          marginLeft={47}
                         />
                       </View>
                     );

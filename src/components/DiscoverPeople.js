@@ -26,13 +26,20 @@ export default class DiscoverPeople extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.boxContainer}>
+        <View
+          style={[
+            styles.boxContainer,
+            {width: this.props.width, height: this.props.height},
+          ]}>
           <TouchableOpacity style={styles.closeIconContainer}>
-            <Image source={PlusIcon} style={styles.closeIcon} />
+            <Image source={PlusIcon} style={[styles.closeIcon, {marginLeft: this.props.marginLeft}]} />
           </TouchableOpacity>
           <Image
             onLoadEnd={this._onLoadEnd}
-            style={styles.img}
+            style={[
+              styles.img,
+              {width: this.props.avatarWidth, height: this.props.avatarHeight},
+            ]}
             source={{uri: this.props.userProfilePic}}
           />
           <ActivityIndicator
@@ -74,8 +81,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   boxContainer: {
-    width: 150,
-    height: 180,
+    // width: 150,
+    // height: 180,
     borderRadius: 5,
     borderColor: '#888',
     borderWidth: 1,
@@ -85,10 +92,10 @@ const styles = StyleSheet.create({
     // marginTop: -70,
   },
   img: {
-    width: 80,
-    height: 80,
+    // width: 80,
+    // height: 80,
     marginTop: 10,
-    borderRadius: 50,
+    borderRadius: 80,
   },
   name: {
     color: '#fff',
@@ -104,7 +111,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   followContainer: {
-    width: 100,
+    width: '90%',
     height: 23,
     borderRadius: 4,
     position: 'absolute',
@@ -122,7 +129,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     position: 'absolute',
-    marginLeft: 47,
+    // marginLeft: 47,
     marginTop: 5,
   },
   closeIconContainer: {},

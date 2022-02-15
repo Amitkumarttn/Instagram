@@ -95,9 +95,15 @@ const MessageScreen = () => {
 
   const onRefresh = () => {
     setIsFetching(true);
-    <ActivityIndicator />
     fetchData();
   };
+  const Empty = props => {
+    return(
+      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        <Text style={styles.headerName}>{props.message}</Text>
+      </View>
+    )
+  }
 
   const renderItem = ({item}) => (
     <Item
@@ -116,12 +122,10 @@ const MessageScreen = () => {
         data={userMessage}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
-        // scrollEnabled={false}
-        // nestedScrollEnabled
         onRefresh={onRefresh}
         refreshing={isFetching}
         progressViewOffset={5000}
-        // ListEmptyComponent={<Empty message="No data found." />}
+        ListEmptyComponent={<Empty message="No data found." />}
       />
     </View>
   );

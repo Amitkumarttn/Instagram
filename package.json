@@ -21,6 +21,7 @@
     "react-native-camera": "^4.2.1",
     "react-native-device-info": "^8.4.8",
     "react-native-double-tap": "^1.0.1",
+    "react-native-flatlist-slider": "^1.0.6",
     "react-native-gesture-handler": "^2.2.0",
     "react-native-linear-gradient": "^2.5.6",
     "react-native-pager-view": "^5.4.9",
