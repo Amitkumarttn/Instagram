@@ -95,7 +95,7 @@ const IGHome = () => {
                   <ScrollView horizontal>
                     {data.map((item, index) => {
                       return (
-                        <View>
+                        <View key={index}>
                           <DiscoverPeople
                             userProfilePic={item.profilepic}
                             userName={item.name}

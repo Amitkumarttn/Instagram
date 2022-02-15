@@ -7,6 +7,7 @@ const images = [
     image:
       'https://images.unsplash.com/photo-1567226475328-9d6baaf565cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
     desc: 'Silent Waters in the mountains in midst of Himilayas',
+
   },
   {
     image:
@@ -21,9 +22,9 @@ const SponsorComp = () => {
       <FlatListSlider
         data={images}
         loop={true}
-        // contentContainerStyle={{marginBottom: 16}}
         indicatorContainerStyle={{marginBottom: 16, }}
         onPress={() => {}}
+        // imageKey={(item, index) => index.toString()}
       />
     </View>
   );

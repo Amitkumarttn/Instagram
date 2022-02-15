@@ -10,6 +10,7 @@ import {
   SafeAreaView,
   ScrollView,
   ActivityIndicator,
+  RefreshControl,
 } from 'react-native';
 import React, {useState} from 'react';
 import {
@@ -86,24 +87,23 @@ const Item = ({avatar, name, message, time}) => (
   </View>
 );
 const MessageScreen = () => {
-  const [isFetching, setIsFetching] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
-  const fetchData = () => {
-    // dispatch(getAllTopicAction(userParamData));
-    setIsFetching(false);
-  };
-
-  const onRefresh = () => {
-    setIsFetching(true);
-    fetchData();
-  };
   const Empty = props => {
-    return(
+    return (
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
         <Text style={styles.headerName}>{props.message}</Text>
       </View>
-    )
-  }
+    );
+  };
+  const onRefresh = () => {
+    console.log('_onRefresh');
+    setRefreshing(true);
+    // getPosts();
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 5000);
+  };
 
   const renderItem = ({item}) => (
     <Item
@@ -122,9 +122,17 @@ const MessageScreen = () => {
         data={userMessage}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
-        onRefresh={onRefresh}
-        refreshing={isFetching}
-        progressViewOffset={5000}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor="#fff"
+            size={'small'}
+            colors={['transparent']}
+            style={{backgroundColor: 'transparent'}}
+          />
+        }
+        showsVerticalScrollIndicator={false}
         ListEmptyComponent={<Empty message="No data found." />}
       />
     </View>
