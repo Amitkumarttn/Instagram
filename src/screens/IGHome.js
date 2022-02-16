@@ -77,6 +77,9 @@ const AllCaughtUp = () => {
     </View>
   );
 };
+const number = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+const randomNumber = number[Math.floor(Math.random() * number.length)];
+
 const IGHome = () => {
   return (
     <View style={styles.container}>
@@ -86,7 +89,7 @@ const IGHome = () => {
         {userPosts.map((title, index) => {
           return (
             <View key={index}>
-              {index === 3 ? (
+              {index === randomNumber ? (
                 <View style={{backgroundColor: '#121212', marginTop: 12}}>
                   <View style={styles.headingContainer}>
                     <Text style={styles.newText}> Suggested for You </Text>
@@ -111,9 +114,9 @@ const IGHome = () => {
                     })}
                   </ScrollView>
                 </View>
-              ) : index === 11 ? (
+              ) : index === randomNumber + 1 ? (
                 <AllCaughtUp />
-              ) : index === 5 ? (
+              ) : index === randomNumber - 2 ? (
                 <View>
                   <View style={styles.headerContainer}>
                     <Image

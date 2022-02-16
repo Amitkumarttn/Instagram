@@ -11,6 +11,9 @@ import {
 } from 'react-native';
 import {data} from '../Data/Video/Data';
 
+const number = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const randomNumber = number[Math.floor(Math.random() * number.length)];
+
 export default class Notification extends Component {
   state = {
     loading: true,
@@ -38,7 +41,7 @@ export default class Notification extends Component {
               animating={this.state.loading}
             />
             <View style={styles.avatarContainer}>
-              <Text style={styles.numText}>100</Text>
+              <Text style={styles.numText}>500+</Text>
             </View>
 
             <View style={styles.textContainer}>
@@ -50,7 +53,7 @@ export default class Notification extends Component {
           {data.map((item, index) => {
             return (
               <View key={index}>
-                {index === 4 ? (
+                {index === randomNumber ? (
                   <View>
                     <Text style={[styles.text, styles.txt]}>This Week</Text>
                     <View style={styles.peopleContainer}>
@@ -101,7 +104,7 @@ export default class Notification extends Component {
                       </View>
                     </View>
                   </View>
-                ) : index === 7 ? (
+                ) : index === randomNumber + 1 ? (
                   <View>
                     <Text style={[styles.text, styles.txt]}>This Month</Text>
                     <View style={styles.peopleContainer}>
