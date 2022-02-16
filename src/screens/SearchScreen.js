@@ -12,6 +12,7 @@ import {
   ActivityIndicator,
   SafeAreaView,
   Button,
+  RefreshControl,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {SearchHighlightIcon} from '../constants';
@@ -22,6 +23,7 @@ const {width, height} = Dimensions.get('window');
 class SearchScreen extends Component {
   state = {
     userImage: false,
+    refreshing: false,
   };
   componentDidMount() {
     this.props.fetchApi();
@@ -33,6 +35,16 @@ class SearchScreen extends Component {
         <Image style={styles.image} source={{uri: download_url}} />
       </View>
     );
+    const onRefresh = () => {
+      console.log('_onRefresh');
+      // setRefreshing(true);
+      this.setState({refreshing: true});
+      // getPosts();
+      setTimeout(() => {
+        // setRefreshing(false);
+        this.setState({refreshing: false});
+      }, 5000);
+    };
     const renderItem = ({item}) => <Item download_url={item.download_url} />;
     return (
       <View style={styles.container}>
@@ -50,6 +62,16 @@ class SearchScreen extends Component {
             numColumns={3}
             renderItem={renderItem}
             keyExtractor={(item, index) => index.toString()}
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={onRefresh}
+                tintColor="#fff"
+                size={'small'}
+                colors={['transparent']}
+                style={{backgroundColor: 'transparent'}}
+              />
+            }
           />
         ) : (
           <ActivityIndicator />

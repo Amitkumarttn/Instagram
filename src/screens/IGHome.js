@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {
   Text,
   View,
@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  RefreshControl,
 } from 'react-native';
 import Story from '../components/Story';
 import {
@@ -81,10 +82,30 @@ const number = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 const randomNumber = number[Math.floor(Math.random() * number.length)];
 
 const IGHome = () => {
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = () => {
+    console.log('_onRefresh');
+    setRefreshing(true);
+    // getPosts();
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 5000);
+  };
   return (
     <View style={styles.container}>
       <InstagramHeader />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor="#fff"
+            size={'small'}
+            colors={['transparent']}
+            style={{backgroundColor: 'transparent'}}
+          />
+        }>
         <StoryComp />
         {userPosts.map((title, index) => {
           return (
@@ -202,5 +223,5 @@ const styles = StyleSheet.create({
   avatar: {width: 30, height: 30, borderRadius: 50},
   icon: {width: 25, height: 25, borderRadius: 50, tintColor: '#fff'},
   text: {color: '#fff', marginLeft: -140, fontWeight: 'bold', fontSize: 16},
-  sponsor: {color: '#fff', fontSize: 13, marginLeft: -140,}
+  sponsor: {color: '#fff', fontSize: 13, marginLeft: -140},
 });

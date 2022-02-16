@@ -8,6 +8,7 @@ import {
   StatusBar,
   Dimensions,
   TouchableOpacity,
+  RefreshControl,
 } from 'react-native';
 import Video from 'react-native-video';
 import {
@@ -33,7 +34,9 @@ export default class ReelScreen extends Component {
     currIndex: 0,
     videoRef: null,
     mute: true,
+    refreshing: false,
   };
+
   // componentDidMount({index}) {
   //   if (!!this.state.videoRef.current) {
   //     this.state.videoRef.current.seek(0);
@@ -170,6 +173,16 @@ export default class ReelScreen extends Component {
     );
   };
   render() {
+    const onRefresh = () => {
+      console.log('_onRefresh');
+      // setRefreshing(true);
+      this.setState({refreshing: true});
+      // getPosts();
+      setTimeout(() => {
+        // setRefreshing(false);
+        this.setState({refreshing: false});
+      }, 5000);
+    };
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content" />
@@ -179,6 +192,16 @@ export default class ReelScreen extends Component {
           renderItem={this.renderItem}
           onChangeIndex={this.onChangeIndex}
           keyExtractor={(item, index) => index.toString()}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={onRefresh}
+              tintColor="#fff"
+              size={'small'}
+              colors={['transparent']}
+              style={{backgroundColor: 'transparent'}}
+            />
+          }
         />
       </View>
     );

@@ -8,6 +8,7 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
+  RefreshControl,
 } from 'react-native';
 import {data} from '../Data/Video/Data';
 
@@ -17,6 +18,7 @@ const randomNumber = number[Math.floor(Math.random() * number.length)];
 export default class Notification extends Component {
   state = {
     loading: true,
+    refreshing: false,
   };
   _onLoadEnd = () => {
     this.setState({
@@ -24,10 +26,31 @@ export default class Notification extends Component {
     });
   };
   render() {
+    const onRefresh = () => {
+      console.log('_onRefresh');
+      // setRefreshing(true);
+      this.setState({refreshing: true});
+      // getPosts();
+      setTimeout(() => {
+        // setRefreshing(false);
+        this.setState({refreshing: false});
+      }, 5000);
+    };
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor="#fff" barStyle="light-content" />
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={onRefresh}
+              tintColor="#fff"
+              size={'small'}
+              colors={['transparent']}
+              style={{backgroundColor: 'transparent'}}
+            />
+          }>
           <View style={styles.followReqContainer}>
             <Image
               onLoadEnd={this._onLoadEnd}

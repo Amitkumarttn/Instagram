@@ -46,6 +46,7 @@ class ProfileScreen extends Component {
   state = {
     down: true,
     loading: true,
+    refreshing: false,
   };
   pressHandler = () => {
     this.setState({down: !this.state.down});
@@ -59,21 +60,41 @@ class ProfileScreen extends Component {
     });
   };
   render() {
+    const onRefresh = () => {
+      console.log('_onRefresh');
+      // setRefreshing(true);
+      this.setState({refreshing: true});
+      // getPosts();
+      setTimeout(() => {
+        // setRefreshing(false);
+        this.setState({refreshing: false});
+      }, 5000);
+    };
     return (
       <View style={styles.container}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={styles.headerContainer}>
-            <Image style={styles.lockIcon} source={LockIcon} />
-            <Text style={styles.text}>{this.props.username}</Text>
-            <Image style={styles.lockIcon} source={DownIcon} />
-            <TouchableOpacity onPress={() => this.ADD.open()}>
-              <Image style={styles.addIcon} source={AddUnHighlightIcon} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.SETTINGS.open()}>
-              <Image style={styles.icon} source={HamburgerIcon} />
-            </TouchableOpacity>
-          </View>
-
+        <View style={styles.headerContainer}>
+          <Image style={styles.lockIcon} source={LockIcon} />
+          <Text style={styles.text}>{this.props.username}</Text>
+          <Image style={styles.lockIcon} source={DownIcon} />
+          <TouchableOpacity onPress={() => this.ADD.open()}>
+            <Image style={styles.addIcon} source={AddUnHighlightIcon} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.SETTINGS.open()}>
+            <Image style={styles.icon} source={HamburgerIcon} />
+          </TouchableOpacity>
+        </View>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={onRefresh}
+              tintColor="#fff"
+              size={'small'}
+              colors={['transparent']}
+              style={{backgroundColor: 'transparent'}}
+            />
+          }>
           {userData.map((item, index) => {
             return (
               <View key={index}>
